@@ -1,0 +1,1372 @@
+<!DOCTYPE html PUBLIC "" "">
+
+<HTML>
+
+<HEAD>
+
+<TITLE>PA -> WISP input</TITLE>
+
+
+
+
+
+
+
+<SCRIPT language="JavaScript">
+
+
+
+	
+
+function set_entry() {
+
+	
+
+	var cmb = document.getElementsByTagName("select");
+
+	 
+
+	 for(var idx=0; idx < cmb.length; idx++) {
+
+   
+
+		// tutte le select
+
+		if(cmb[idx].name.endsWith("C") ) {
+
+
+
+			var disable = true;
+
+			
+
+			// tutti i valori di una select
+
+			for(var idx2=0; idx2 < cmb[idx].length; idx2++) {
+
+				
+
+				// se non è vuota
+
+				if (cmb[idx].options[idx2].innerHTML != "") {
+
+					disable = false;
+
+					break;
+
+				}
+
+			}
+
+			
+
+			// se è vuota, disabilita
+
+			if (disable) {
+
+				cmb[idx].disabled = true;
+
+				cmb[idx].style.background="#DCF0FC";
+
+			}
+
+		}
+
+	}
+
+
+
+}
+
+
+
+function set_submit() {
+
+
+
+	set_action();
+
+	set_method();
+
+	set_target();
+
+	excludePreset();
+
+
+
+}
+
+
+
+function setPreset(cmbI) {
+
+	//alert("setPreset:1");
+
+	var e = document.getElementById(cmbI);
+
+	var valC = e.options[e.selectedIndex].value;
+
+	//alert("setPreset2:" + valC);
+
+	var fname = cmbI.substring(0, cmbI.length - 1);
+
+	//alert("setPreset2:" + fname);
+
+	document.getElementById(fname).value = valC;
+
+	document.getElementById(fname).style.background="#fdffcc";
+
+}
+
+
+
+function excludePreset() {
+
+
+
+	var cmb = document.getElementsByTagName("select");
+
+	
+
+	for(var idx=0; idx < cmb.length; idx++) {
+
+       
+
+		if(cmb[idx].name.endsWith("C") ) {
+
+			cmb[idx].disabled = true;
+
+		}
+
+	}
+
+
+
+	document.getElementById("env").disabled = true;
+
+	document.getElementById("meth").disabled = true;
+
+
+
+}
+
+
+
+function toggleField(nameB) {
+
+	
+
+		var fname = nameB.substring(0, nameB.length - 1);
+
+		//alert("finame: " + fname);
+
+	
+
+	// DISABILITA...
+
+	if (document.getElementById(fname).disabled == false) {
+
+		document.getElementById(fname).disabled = true;
+
+		document.getElementById(fname).style.background='#DCF0FC';
+
+		
+
+		document.getElementById(fname + "C").disabled = true;
+
+		document.getElementById(fname + "C").className = 'presetOff';
+
+			
+
+		document.getElementById(nameB).innerHTML="Abilita";
+
+		document.getElementById(nameB).style.background='#90EE90';
+
+		
+
+		document.getElementById(fname + "L").className='colOff';
+
+		
+
+		setStyleV(fame, false);
+
+		
+
+	// RIABILITA...
+
+	} else {
+
+		document.getElementById(fname).disabled = false;
+
+		document.getElementById(fname).style.background='#ffffff';
+
+		
+
+		document.getElementById(fname + "C").disabled = false;
+
+		document.getElementById(fname + "C").className = 'presetOn';
+
+		
+
+		document.getElementById(nameB).innerHTML="Escludi";
+
+		document.getElementById(nameB).style.background='#ff7777';
+
+		
+
+		document.getElementById(fname + "L").className='colOn';
+
+		
+
+		setStyleV(fame, true);
+
+	}
+
+
+
+}
+
+
+
+function toggleField2(nameB) {
+
+	
+
+		var fname = nameB.substring(0, nameB.length - 1);
+
+		//alert("finame: " + fname);
+
+	
+
+	// DISABILITA...
+
+	if (document.getElementById(fname).disabled == false) {
+
+		document.getElementById(fname).disabled = true;
+
+		document.getElementById(fname).style.background='#DCF0FC';
+
+		
+
+		document.getElementById(fname + "C").disabled = true;
+
+		document.getElementById(fname + "C").className = 'presetOff';
+
+			
+
+		document.getElementById(nameB).innerHTML="Abilita";
+
+		document.getElementById(nameB).style.background='#90EE90';
+
+		
+
+		document.getElementById(fname + "L").className='colOff';
+
+		
+
+		setStyleV(fame, false);
+
+		
+
+	// RIABILITA...
+
+	} else {
+
+		document.getElementById(fname).disabled = false;
+
+		document.getElementById(fname).style.background='#ffffff';
+
+		
+
+		document.getElementById(fname + "C").disabled = false;
+
+		document.getElementById(fname + "C").className = 'presetOn';
+
+		
+
+		document.getElementById(nameB).innerHTML="Escludi";
+
+		document.getElementById(nameB).style.background='#ff7777';
+
+		
+
+		document.getElementById(fname + "L").className='colOn';
+
+		
+
+		setStyleV(fame, true);
+
+	}
+
+
+
+}
+
+
+
+
+
+// ON SUBMIT  
+
+function set_action() {
+
+
+
+	//alert("set_action");
+
+	var e = document.getElementById("env");
+
+	var strEnv = e.options[e.selectedIndex].value;
+
+	
+
+	document.getElementById("wisp-input").action = strEnv;
+
+}
+
+
+
+function set_target() {
+
+	
+
+	//alert("set_target");
+
+	var e = document.getElementById("trg");
+
+	
+
+	if (e.checked) {
+
+		document.getElementById("wisp-input").target = "_blank";
+
+	} else {
+
+		document.getElementById("wisp-input").target = "_self";
+
+	}
+
+}
+
+
+
+function set_method() {
+
+
+
+	//alert("set_method");
+
+	var e = document.getElementById("meth");
+
+	var strMeth = e.options[e.selectedIndex].value;
+
+	//alert(strMeth);
+
+	document.getElementById("wisp-input").method = strMeth;
+
+}
+
+
+
+function disablePresets() {
+
+
+
+	set_method
+
+	var e = document.getElementById("meth");
+
+	var strMeth = e.options[e.selectedIndex].value;
+
+	//alert(strMeth);
+
+	document.getElementById("wisp-input").method = strMeth;
+
+}
+
+
+
+// ON LOAD //
+
+window.onload = set_entry;
+
+
+
+
+
+</SCRIPT>
+
+
+
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252">
+
+  <style>
+
+	body {
+
+        font-family: 'Calibri', sans-serif;
+
+        font-size: 20px;
+
+		font-weight: 600;
+
+		background-color: #444444;
+
+    }
+
+	
+
+	table {
+
+		border: solid 2px gray;
+
+		padding: 1px;
+
+		border: 2px solid #456879;
+
+		border-radius:8px;
+
+		background-color: #DCF0FC;
+
+		margin-left:auto; 
+
+		margin-right:auto;
+
+		margin-bottom: auto;
+
+		margin-top: auto;
+
+	}
+
+	  
+
+	tr {
+
+		 height:27px;
+
+		
+
+	}
+
+		 
+
+	tr.hdr {
+
+	
+
+		height:40px;
+
+		font-size: 25px;
+
+		font-style: italic;
+
+		text-align: center;
+
+		vertical-align: middle;
+
+		font-weight: 800;
+
+		font-color: #0000FF;
+
+	}
+
+
+
+	td {
+
+		 padding-left: 3px;
+
+		 padding-right: 3px;
+
+	}
+
+	
+
+	td.colOn {
+
+		background-color: #ffffff;
+
+		border:2px solid #456879;
+
+		border-radius:5px;
+
+		color: #000000;
+
+		text-align: right;
+
+		height:27px;
+
+	}
+
+	
+
+	td.colOff {
+
+		background-color: #DCF0FC;
+
+		border:2px solid #DCF0FC;
+
+		border-radius:5px;
+
+		color: #000000;
+
+		text-align: right;
+
+		height:27px;
+
+	}
+
+
+
+	.vers {
+
+		width: 50px;
+
+	    text-align: center;
+
+		vertical-align: middle;
+
+		background-color: #ffffff;
+
+	}
+
+	
+
+	th {
+
+		 padding-left: 8px;
+
+		 padding-right: 8px;
+
+		 font-size: 40px;
+
+		 font-weight: 800;
+
+		 height:40px;
+
+	}
+
+		 
+
+	button {
+
+		font-family: 'Overpass', sans-serif;
+
+        font-size: 18px;
+
+		font-weight: 700;
+
+		background-color:#ff7777;
+
+		border:2px solid #456879;
+
+		border-radius:5px;
+
+		padding-left:5px;
+
+		height: 27px;
+
+		width: 100px;
+
+	}
+
+	
+
+	input[type=text] {
+
+		font-family: 'Courier New', sans-serif;
+
+        font-size: 18px;
+
+		font-weight: 700;
+
+		background-color: #FFFFFF;
+
+		border:2px solid #456879;
+
+		border-radius:5px;
+
+		padding-left:5px;
+
+		height: 25px;
+
+		width: 415px;
+
+	}
+
+	
+
+	input[type=text]:disabled {
+
+		font-family: 'Courier New', sans-serif;
+
+		background-color: #DCF0FC;
+
+      	border:0px solid #DCF0FC;
+
+	}
+
+	
+
+	input[type=checkbox]:checked + label  {
+
+		font-family: 'Courier New', sans-serif;
+
+        font-size: 18px;
+
+		font-weight: 700;
+
+		border:2px solid #456879;
+
+		border-radius:5px;
+
+		padding-left:5px;
+
+	}
+
+	
+
+	select {
+
+		font-family: 'Courier New', sans-serif;
+
+        font-size: 17px;
+
+		font-weight: 700;
+
+		border:2px solid #456879;
+
+		border-radius:5px;
+
+		padding-left:5px;
+
+		
+
+	}
+
+	
+
+	
+
+	select.env {
+
+		font-size: 28px;
+
+		font-weight: 900;
+
+		background-color:#e6ffff;
+
+		background:#FFDCA6;
+
+		height: 50px;
+
+		width: 710px;
+
+	}
+
+	
+
+	
+
+	select.meth {
+
+		background-color:#e6ffff;
+
+		background:#D7BCFF;
+
+		height: 50px;
+
+		width: 100px;	
+
+	}
+
+	
+
+	
+
+	select.presetOn {
+
+		font-size: 18px;
+
+		font-weight: 700;
+
+		border:2px solid #456879;
+
+		border-radius:5px;
+
+		color: #000000;
+
+		background-color:#ffffff;
+
+		background:#ffffff;
+
+		height: 30px;
+
+		width: 200px;
+
+		align: left;
+
+	}
+
+	
+
+	select.presetOff {
+
+		border:0px solid #456879;
+
+		background-color: #DCF0FC;
+
+		color: #456879;
+
+		border-radius:5px;
+
+		width: 200px;
+
+		align: left;
+
+	}
+
+	
+
+
+
+	input[type=submit] {
+
+		font-family: 'Calibri', sans-serif;
+
+        font-size: 26px;
+
+		font-weight: 800;
+
+		background-color:#90EE90;
+
+		border:2px solid #456879;
+
+		border-radius:5px;
+
+		padding-left:5px;
+
+		width: 248px;
+
+		height: 50px;
+
+	}
+
+}
+
+    </style>
+
+	
+
+</HEAD>
+
+
+
+<BODY>
+
+
+
+<TABLE>
+
+	<FORM action="https://wisp.te.sia.eu/wisp13-be/" target="_blank" onsubmit="set_submit();" name="wisp-input" id="wisp-input" method="POST">
+
+	<TR>
+
+		<TH colspan="5" align="middle"><div style="border: solid 3 #060">PA &#8594; WISP HTTP input</div></TH>
+
+	</TR>
+
+	<TR class="hdr">
+
+		<TD>campo</TD>
+
+		<TD class="vrs" name="vrsD">v.1.3</TD>
+
+		<TD>valore</TD>
+
+		<TD>(scegli)</TD>
+
+		<TD>azioni</TD>
+
+	</TR>
+
+	<TR>
+
+		<!--<TD>
+
+			<button type="button" id="idDominioB" onclick="javascript:toggleField(this.id);">idDominio</button>
+
+		</TD>-->
+
+		<TD class="colOn" id="idDominioL">ID dominio</TD>
+
+		<TD class="vrs" name="vrs" id="idDominioV">OBB</TD>
+
+		<TD><INPUT name="idDominio" id="idDominio" type="text" value="idDominio1"></TD>
+
+		<TD>
+
+			<select class="preset" onchange="javascript:setPreset(this.id);" name="idDominioC" id="idDominioC">
+
+				<option name="a" value=""></option>
+
+				<option name="b" value="80184430587">mdg - 80184430587</option>
+
+				<option name="c" value=""></option>
+
+			</select>
+
+		</TD>
+
+		<TD>
+
+			<button type="button" id=idDominioB" onclick="javascript:toggleField(this.id);">Escludi</button>
+
+		<TD>
+
+	</TR>
+
+	<TR>
+
+		<TD class="colOn" id="enteCreditoreL">Ente Creditore</TD>
+
+		<TD class="vrs" name="vrs" id="enteCreditoreV">OBB</TD>
+
+		<TD><INPUT name="enteCreditore" id="enteCreditore" type="text" value="Comune di Cabiate">
+
+		<TD>
+
+			<select class="preset" onchange="javascript:setPreset(this.id);" name="enteCreditoreC" id="enteCreditoreC">
+
+				<option name="a" value=""></option>
+
+				<option name="b" value="Ministero di Giustizia">Ministero di Giustizia</option>
+
+				<option name="b" value="Provincia di Viterbo àè">Provincia di Viterbo àè</option>
+
+				<option name="b" value="Università di Ciriè">Università di Ciriè</option>
+
+				<option name="c" value=""></option>
+
+			</select>
+
+		</TD>
+
+		<TD>
+
+			<button type="button" id="enteCreditoreB" onclick="javascript:toggleField(this.id);">Escludi</button>
+
+		<TD>
+
+	</TR>
+
+	<TR>
+
+		<TD class="colOn" id="keyPAL">keyPA</TD>
+
+		<TD class="vrs" name="vrs" id="keyPAV">OBB</TD>
+
+		<TD><INPUT name="keyPA" id="keyPA" type="text" value="1307201616361259051cb66f9ac190df6ec"> </TD>
+
+		<TD>
+
+			<select class="preset" onchange="javascript:setPreset(this.id);" name="keyPAC" id="keyPAC">
+
+				<option name="a" value=""></option>
+
+				<option name="b" value=""></option>
+
+				<option name="c" value=""></option>
+
+			</select>
+
+		</TD>
+
+		<TD><button type="button" id="keyPAB" onclick="javascript:toggleField(this.id);">Escludi</button><TD>
+
+	</TR>
+
+	<TR>
+
+		<TD class="colOn" id="urlReturnL">URL return</TD>
+
+		<TD class="vrs" name="vrs" id="urlReturnV">OBB</TD>
+
+		<TD><INPUT name="urlReturn" id="urlReturn" type="text" value="http://127.0.0.1:8082/portal/servizi/pagamenti/pagopa/chiedi_scelta_wisp"></TD>
+
+		<TD>
+
+			<select class="preset" onchange="javascript:setPreset(this.id);" name="urlReturnC" id="urlReturnC">
+
+				<option name="a" value=""></option>
+
+				<option name="b" value=""></option>
+
+				<option name="c" value=""></option>
+
+			</select>
+
+		</TD>
+
+		<TD><button type="button" id="urlReturnB" onclick="javascript:toggleField(this.id);">Escludi</button><TD>
+
+	</TR>
+
+	<TR>
+
+		<TD class="colOn" id="urlBackL">URL back</TD>
+
+		<TD class="vrs" name="vrs" id="urlBackV">OBB</TD>
+
+		<TD><INPUT name="urlBack" id="urlBack" type="text" value="http://127.0.0.1:8082/portal/servizi/pagamenti"> </TD>
+
+		<TD>
+
+			<select class="preset" onchange="javascript:setPreset(this.id);" name="urlBackC" id="urlBackC">
+
+				<option name="a" value=""></option>
+
+				<option name="b" value=""></option>
+
+				<option name="c" value=""></option>
+
+			</select>
+
+		</TD>
+
+		<TD><button type="button" id="urlBackB" onclick="javascript:toggleField(this.id);">Escludi</button><TD>
+
+	</TR>
+
+	<TR>
+
+		<TD class="colOn" id="primitivaL">Primitiva</TD>
+
+		<TD class="vrs" name="vrs" id="primitivaV">OBB</TD>
+
+		<TD><INPUT name="primitiva" id="primitiva" type="text" value="nodoInviaRPT"></TD>
+
+			<TD><select class="preset" onchange="javascript:setPreset(this.id);" name="primitivaCC" id="primitivaC">
+
+				<option name="a" value=""></option>
+
+				<option name="b" value="nodoInviaRPT">nodoInviaRPT</option>
+
+				<option name="c" value="nodoInviaCarrelloRPT">nodoInviaCarrelloRPT</option>
+
+			</select>
+
+		</TD>
+
+		<TD><button type="button" id="primitivaB" onclick="javascript:toggleField(this.id);">Escludi</button><TD>
+
+		
+
+	</TR>
+
+	<TR>
+
+		<TD class="colOn" id="numPagamentiRPTL">Numero pagamenti</TD>
+
+		<TD class="vrs" name="vrs" id="numPagamentiRPTV">OBB</TD>
+
+		<TD><INPUT name="numPagamentiRPT" id="numPagamentiRPT" type="text" value="1"> </TD>
+
+		<TD>
+
+			<select class="preset" onchange="javascript:setPreset(this.id);" name="numPagamentiRPTC" id="numPagamentiRPTC">
+
+				<option name="a" value=""></option>
+
+				<option name="b" value="1">1</option>
+
+				<option name="c" value="2">2</option>
+
+				<option name="d" value="3">3</option>
+
+				<option name="e" value="4">4</option>
+
+				<option name="f" value="5">5</option>
+
+			</select>
+
+		</TD>
+
+		<TD><button type="button" id="numPagamentiRPTB" onclick="javascript:toggleField(this.id);">Escludi</button><TD>
+
+		
+
+	</TR>
+
+	<TR>
+
+		<TD class="colOn" id="stornoPagamentoL">Storno Pagamento</TD>
+
+		<TD class="vrs" name="vrs" id="stornoPagamentoV">OBB</TD>
+
+		<TD><INPUT name="stornoPagamento" id="stornoPagamento" type="text" value="NO"> </TD>
+
+		<TD>
+
+			<select class="preset" onchange="javascript:setPreset(this.id);" name="stornoPagamentoC" id="stornoPagamentoC">
+
+				<option name="a" value=""></option>
+
+				<option name="b" value="SI">SI</option>
+
+				<option name="c" value="NO">NO</option>
+
+			</select>
+
+		</TD>
+
+		<TD><button type="button" id="stornoPagamentoB" onclick="javascript:toggleField(this.id);">Escludi</button><TD>
+
+	</TR>
+
+	<TR>
+
+		<TD class="colOn" id="bolloDigitaleL">Bollo digitale</TD>
+
+		<TD class="vrs" name="vrs" id="bolloDigitaleV">OBB</TD>
+
+		<TD><INPUT name="bolloDigitale"id="bolloDigitale" type="text" value="NO"></TD>
+
+		<TD>
+
+			<select class="preset" onchange="javascript:setPreset(this.id);" name="bolloDigitaleC" id="bolloDigitaleC">
+
+				<option name="a" value=""></option>
+
+				<option name="b" value="SI">SI</option>
+
+				<option name="c" value="NO">NO</option>
+
+			</select>
+
+		</TD>
+
+		<TD><button type="button" id="bolloDigitaleB" onclick="javascript:toggleField(this.id);">Escludi</button><TD>
+
+	</TR>
+
+	<TR>
+
+		<TD class="colOn" id="terzoModelloPagamentoL">Terzo Modello Pagamento</TD>
+
+		<TD class="vrs" name="vrs" id="terzoModelloPagamentoV">OBB</TD>
+
+		<TD><INPUT name="terzoModelloPagamento" id="terzoModelloPagamento" type="text" value="NO"> </TD>
+
+			<TD><select class="preset" onchange="javascript:setPreset(this.id);" name="terzoModelloPagamentoC" id="terzoModelloPagamentoC">
+
+				<option name="a" value=""></option>
+
+				<option name="b" value="SI">SI</option>
+
+				<option name="c" value="NO">NO</option>
+
+			</select>
+
+		</TD>
+
+		<TD><button type="button" id="terzoModelloPagamentoB" onclick="javascript:toggleField(this.id);">Escludi</button><TD>
+
+	</TR>
+
+	<TR>
+
+		<TD class="colOn" id="idPSPL">ID PSP</TD>
+
+		<TD class="vrs" name="vrs" id="idPSPV">FAC</TD>
+
+		<TD><INPUT name="idPSP" id="idPSP" type="text" value="sdsf"></TD>
+
+			<TD><select class="preset" onchange="javascript:setPreset(this.id);" name="idPSPC" id="idPSPC">
+
+				<option name="a" value=""></option>
+
+				<option name="b" value=""></option>
+
+				<option name="c" value=""></option>
+
+			</select>
+
+		</TD>
+
+		<TD><button type="button" id="idPSPB" onclick="javascript:toggleField(this.id);">Escludi</button><TD>
+
+	</TR>
+
+	<TR>
+
+		<TD class="colOn" id="tipoVersamentoL">Tipo Versamento</TD>
+
+		<TD class="vrs" name="vrs" id="tipoVersamentoV">FAC</TD>
+
+		<TD><INPUT name="tipoVersamento" id="tipoVersamento" type="text" value="BBT"></TD>
+
+		<TD>
+
+			<select class="preset" onchange="javascript:setPreset(this.id);" name="tipoVersamentoC" id="tipoVersamentoC">
+
+				<option name="a" value=""></option>
+
+				<option name="b" value="BBT">BBT > Bonifico Bancario di Tesoreria</option>
+
+				<option name="c" value="BP">BP > Bollettino Postale</option>
+
+				<option name="d" value="AD">AD > Addebito Diretto</option>
+
+				<option name="e" value="CP">CP > Carta di Pagamento</option>
+
+				<option name="f" value="PO">PO > Pagamento attivato presso PSP</option>
+
+				<option name="g" value="OBEP">OBEP > On-line banking e-payment</option>
+
+				<option name="h" value="OTH">OTH > Altre modalit&agrave; di pagamento</option>
+
+			</select>
+
+		</TD>
+
+		<TD><button type="button" id="tipoVersamentoB" onclick="javascript:toggleField(this.id);">Escludi</button><TD>
+
+	</TR>
+
+	<TR>
+
+		<TD class="colOn" id="importoTransazioneL">Importo Transazione</TD>
+
+		<TD class="vrs" name="vrs" id="importoTransazioneV">OBB</TD>
+
+		<TD><INPUT name="importoTransazione" id="importoTransazione" type="text" value="15"> </TD>
+
+		<TD>
+
+			<select class="preset" onchange="javascript:setPreset(this.id);" name="importoTransazioneC" id="importoTransazioneC">
+
+				<option name="a" value=""></option>
+
+				<option name="b" value=""></option>
+
+				<option name="c" value=""></option>
+
+			</select>
+
+		</TD>
+
+		<TD><button type="button" id="importoTransazioneB" onclick="javascript:toggleField(this.id);">Escludi</button><TD>
+
+	</TR>
+
+	<TR>
+
+		<TD class="colOn" id="versioneInterfacciaWISPL">versione interfaccia WISP</TD>
+
+		<TD class="vrs" name="vrs" id="versioneInterfacciaWISPV">OBB</TD>
+
+		<TD><INPUT name="versioneInterfacciaWISP" id="versioneInterfacciaWISP" type="text" value="1.3"></TD>
+
+			<TD><select class="preset" onchange="javascript:setPreset(this.id);" name="versioneInterfacciaWISPC" id="versioneInterfacciaWISPC">
+
+				<option name="a" value=""></option>
+
+				<option name="b" value="1.2">1.2</option>
+
+				<option name="c" value="1.3">1.3</option>
+
+			</select>
+
+		</TD>
+
+		<TD><button type="button" id="versioneInterfacciaWISPB" onclick="javascript:toggleField(this.id);">Escludi</button><TD>
+
+	</TR>
+
+	<TR>
+
+		<TD class="colOn" id="ibanAccreditoL">IBAN accredito</TD>
+
+		<TD class="vrs" name="vrs" id="ibanAccreditoV">...</TD>
+
+		<TD><INPUT name="ibanAccredito" id="ibanAccredito" type="text" value="IT96R0123454321000000012345"> </TD>
+
+		<TD>
+
+			<select class="preset" onchange="javascript:setPreset(this.id);" name="ibanAccreditoC" id="ibanAccreditoC">
+
+				<option name="a" value=""></option>
+
+				<option name="b" value="IT08S0615567196000003200023">Invalido IT08S0615567196000003200023</option>
+
+				<option name="c" value="IT45R0760103200000000001016">Poste  IT45R0760103200000000001016</option>
+
+				<option name="d" value="IT96R0123454321000000012345">MyBank IT96R0123454321000000012345</option>
+
+				<option name="e" value="IT04O0100003245350008332100">BankIT IT04O0100003245350008332100</option>
+
+			</select>
+
+		</TD>
+
+		<TD><button type="button" id="ibanAccreditoB" onclick="javascript:toggleField(this.id);">Escludi</button><TD>
+
+	</TR>
+
+	<TR>
+
+		<TD class="colOn" id="contoPosteL">Conto Poste</TD>
+
+		<TD class="vrs" name="vrs" id="contoPosteV">OBB</TD>
+
+		<TD>
+
+			<INPUT name="contoPoste" id="contoPoste" type="text" value="NO">
+
+		</TD>
+
+		<TD>
+
+			<select class="preset" onchange="javascript:setPreset(this.id);" name="contoPosteC" id="contoPosteC">
+
+				<option name="a" value=""></option>
+
+				<option name="b" value="SI">SI</option>
+
+				<option name="c" value="NO">NO</option>
+
+			</select>
+
+		</TD>
+
+		<TD><button type="button" id="contoPosteB" onclick="javascript:toggleField(this.id);">Escludi</button><TD>
+
+	</TR>
+
+	<TR>
+
+		<TD class="colOn" id="pagamentiModello2L">Pagamenti modello 2</TD>
+
+		<TD class="vrs" name="vrs" id="pagamentiModello2V">OBB</TD>
+
+		<TD><INPUT name="pagamentiModello2" id="pagamentiModello2" type="text" value="SI"></TD>
+
+			<TD><select class="preset" onchange="javascript:setPreset(this.id);" name="pagamentiModello2C" id="pagamentiModello2C">
+
+				<option name="a" value=""></option>
+
+				<option name="b" value="SI">SI</option>
+
+				<option name="c" value="NO">NO</option>
+
+			</select>
+
+		</TD>
+
+		<TD><button type="button" id="pagamentiModello2B" onclick="javascript:toggleField(this.id);">Escludi</button><TD>
+
+	</TR>
+
+	<TR>
+
+		<TD class="colOn" id="codiceLinguaL">Codice Lingua</TD>
+
+		<TD class="vrs" name="vrs" id="codiceLinguaV">OBB</TD>
+
+		<TD><INPUT name="codiceLingua" id="codiceLingua" type="text" value="IT"></TD>
+
+		<TD>
+
+			<select class="preset" onchange="javascript:setPreset(this.id);" name="codiceLinguaC" id="codiceLinguaC">
+
+				<option name="a" value=""></option>
+
+				<option name="b" value="IT">IT</option>
+
+				<option name="c" value="EN">EN</option>
+
+				<option name="d" value="FR">FR</option>
+
+				<option name="e" value="DE">DE</option>
+
+				<option name="f" value="SL">SL</option>
+
+			</select>
+
+		</TD>
+
+		<TD><button type="button" id="codiceLinguaB" onclick="javascript:toggleField(this.id);">Escludi</button><TD>
+
+	</TR>
+
+	<TR>
+
+		<TD colspan="3">
+
+			<select class="env" name="env" id="env">
+
+				
+				<option name="MAX" value="http://localhost:8080/wisp"> LOCAL http://localhost:8080/wisp</option>
+				<option name="MAX" value="http://10.82.39.131:8080/wisp"> MAX http://10.82.39.131:8080/wisp</option>
+
+				<option name="SIT" value="http://wisp13-new-sit-npa-nodopagamenti.ocp-tst-npaspc.sia.eu/wisp" selected> SIT http://wisp13-new-sit-npa-nodopagamenti.ocp-tst-npaspc.sia.eu/wisp</option>
+
+				<option name="TI" value="http://10.6.97.36:8080/wisp/">TI 1.3   | http://10.6.97.36:8080/wisp/</option>
+
+				<option name="TE" value="https://wisp.te.sia.eu/wisp/">TE 1.3   | https://wisp.te.sia.eu/wisp/</option>
+
+				<option name="PROD" value="https://wisp.pagopa.gov.it/wisp/">PROD 1.3 | https://wisp.pagopa.gov.it/wisp/</option>
+
+			</select>
+
+		</TD>
+
+		<TD><INPUT type="submit" value="INVIA"></TD>
+
+		<TD>
+
+			<select class="meth" name="meth" id="meth">
+
+				<option name="post" value="POST" selected>POST</option>
+
+				<option name="get" value="GET">GET</option>
+
+			</select>
+
+		</TD>
+
+	</TR>
+
+	<TR>
+
+		<TD colspan="3" align="right">
+
+		<INPUT type="checkbox" id="trg" name="trg" value="_blank">Apri in altro tab</INPUT>
+
+		</TD>
+
+		<TD colspan="2" align="right">last update 22/06/2017</TD>
+
+	</TR>
+
+
+
+	</FORM>
+
+
+
+</TABLE>
+
+
+
+</BODY>
+
+
+
+</HTML>
+
+
+
+
+

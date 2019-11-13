@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <style>
+    html,body {height:100%;box-sizing: border-box;margin: 0;padding: 5px;}
+    body{
+      display:flex;
+      flex-direction:column;
+    }
+        body,textarea {
+        color: #212121;
+        font-family: "Helvetica Neue", "Calibri Light", Roboto, sans-serif;
+        letter-spacing: 0.02em;
+        font-size:13px;
+
+    }
+    .buttons{
+      display:flex;
+    }
+    textarea{
+      display:block;
+      width:100%;
+      flex-grow: 1;
+    }
+    </style>
+    <script type="text/javascript" src="vkbeautify.0.99.00.beta.js"></script>
+</head>
+<body>
+  <div>Cleartext</div>
+  <textarea id ="source"></textarea>
+  <div class="buttons">
+    <button id="encode">encode ▼</button>
+    <button id="decode">decode ▲</button>
+    <button id="prettyfy">pretty print</button>
+  </div>
+  <div>Encoded</div>
+  <textarea id ="dest"></textarea>
+  <script>
+  document.querySelector("#encode").addEventListener('click',function(){
+    document.querySelector("#dest").value = btoa(document.querySelector("#source").value)
+  })
+  document.querySelector("#decode").addEventListener('click',function(){
+    document.querySelector("#source").value = atob(document.querySelector("#dest").value)
+  })
+
+  document.querySelector("#prettyfy").addEventListener('click',function(){
+    document.querySelector("#source").value = vkbeautify.xml(document.querySelector("#source").value)
+  })
+
+
+  </script>
+</body>
+</html>

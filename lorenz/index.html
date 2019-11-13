@@ -1,0 +1,8 @@
+<!DOCTYPE html>
+<html>
+<head>
+</head>
+<body>
+    <a id="OutputHref" ng-attr-href="{{ output }}" href="javascript:function replace(){var lines=document.querySelectorAll(&quot;.log-line-text&quot;);Array.prototype.forEach.call(lines,function(t,a){var r=t.textContent;try{var p=JSON.parse(r.trim().replace(/(\\ &quot;)/g,'\\&quot;')),color=&quot;#FFF&quot;;switch(p.app.level_value){case 3e4:color=&quot;yellow&quot;;break;case 4e4:color=&quot;red&quot;;break;case 2e4:color=&quot;#27D507&quot;;break;case 1e4:color=&quot;cyan&quot;}var i=document.createElement(&quot;td&quot;);i.innerHTML='<span style=&quot;color:grey&quot;>['+p.app.bundleName+&quot;:&quot;+p.app.bundleVersion+'] [<span style=&quot;color:'+color+'&quot;>'+p.app.level+&quot;</span>] [&quot;+p.app.apptimestamp+&quot;] [&quot;+(p.app.sessionId||&quot;no_session&quot;)+&quot;] [&quot;+p.app.logger_name+&quot;] </span>&quot;;var s=document.createElement(&quot;span&quot;);if(s.textContent=p.message,i.appendChild(s),t.parentNode.replaceChild(i,t),p.app.stack_trace){var n=document.createElement(&quot;span&quot;);n.style.color=&quot;red&quot;,n.innerHTML=p.app.stack_trace.replace(/\n/g,&quot;<br>&quot;),i.appendChild(document.createElement(&quot;br&quot;)),i.appendChild(n)}}catch(c){t.className=&quot;.log-line-text-mod&quot;}})}replace();var targetNode=document.querySelector(&quot;.log-view&quot;),config={attributes:!0,childList:!0,subtree:!0},callback=function(mutationsList,observer){replace()},observer=new MutationObserver(callback);observer.observe(targetNode,config);">Openshift Logs</a>
+</body>
+</html>
