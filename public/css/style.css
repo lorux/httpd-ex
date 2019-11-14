@@ -1,0 +1,211 @@
+html,body{
+    height:100%;
+    margin:0;
+}
+html {
+  box-sizing: border-box;
+}
+*, *:before, *:after {
+  box-sizing: border-box;
+}
+
+body{
+    background: #c3e3ff;
+    font-size: 10px;
+}
+#container{
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    flex-wrap: wrap;
+}
+#container table{
+    width:100%;
+}
+h4{
+    margin:2px 0px;
+}
+
+.membername{
+    flex-grow: 1;
+    padding: 0 10px;
+}
+
+.bundle{
+    font-weight:bold;
+    min-width: 20%;
+}
+#buttonscontainer{
+    display:flex;
+}
+#buttonscontainer > * {
+    margin:5px
+}
+#leader{
+    flex-grow:1;
+    align-self: center;
+}
+h3{
+    margin: 5px;
+}
+.flex{
+    display:flex;
+}
+.column{
+    flex-direction: column;
+    align-items: flex-start;
+}
+.growchildren > *{
+    flex-grow:1;
+}
+
+@-moz-keyframes joining /* Firefox */ {
+    0% {background:#c8ffb8;}
+    50% {background:#feffb8;}
+    100% {background:#c8ffb8;}
+}
+
+@-webkit-keyframes joining /* Safari and Chrome */ {
+    0% {background:#c8ffb8;}
+    50% {background:#feffb8;}
+    100% {background:#c8ffb8;}
+}
+
+@-moz-keyframes weakly /* Firefox */ {
+    0% {background:#c8ffb8;}
+    50% {background:#93ff59;}
+    100% {background:#c8ffb8;}
+}
+
+@-webkit-keyframes weakly /* Safari and Chrome */ {
+    0% {background:#c8ffb8;}
+    50% {background:#82f9ff;}
+    100% {background:#c8ffb8;}
+}
+
+.Up{
+    background:#82f9ff;
+}
+.WeaklyUp{
+    animation:weakly 1s;
+    -moz-animation:weakly 1s infinite; /* Firefox */
+        -webkit-animation:weakly 1s infinite; /* Safari and Chrome */
+}
+.Joining{
+    animation:joining 1s;
+    -moz-animation:joining 1s infinite; /* Firefox */
+        -webkit-animation:joining 1s infinite; /* Safari and Chrome */
+}
+.Exiting{
+    background:#ffceb8;
+}
+.Leaving{
+    background:#ffebb8;
+}
+
+.RUNNING td{
+    background:#d0ffc4;
+    color:black !important ;
+}
+.error td{
+    background:#ff5d5d;
+}
+.disabled{
+    color:grey;
+}
+.error span{
+    color:white;
+}
+.resetbutton{
+    float:right;
+    font-weight:bold;
+    text-decoration:underline;
+}
+.RUNNING.error .resetbutton{
+    color:white;
+}
+.RUNNING .resetbutton{
+    color:black;
+}
+.brand-logo img{
+        height: 64px;
+}
+
+.switch{
+    display:inline-block;
+}
+.switch label {
+    color:white;
+}
+table{
+background:white;
+
+}
+
+td,th {
+    padding:2px 5px;
+}
+h6{
+    margin:0.4rem
+}
+
+#jobsStatus {
+    padding: 5px;
+
+    -webkit-column-count: 2;
+      -webkit-column-gap: 5px;
+      -webkit-column-fill: auto;
+      -moz-column-count: 2;
+      -moz-column-gap: 5px;
+      -moz-column-fill: auto;
+      column-count: 2;
+      column-gap: 5px;
+      column-fill: auto;
+}
+
+.jobBox {
+    display: flex;
+    flex-direction: column;
+    -webkit-column-break-inside: avoid;
+
+  display: block;
+  word-wrap: break-word;
+  -webkit-column-break-inside: avoid;
+  -moz-column-break-inside: avoid;
+  column-break-inside: avoid;
+  margin-bottom:5px;
+
+}
+
+.jobBox td{
+    font-family:monospace;
+}
+
+.toast.error{
+    background:#ff5d5d;
+    color:white;
+}
+.hideRoles .roles{
+    display:none;
+}
+#memberscontainer .switch{
+    margin-left:5px;
+}
+#memberscontainer .switch label{
+    color:grey;
+}
+
+nav{
+    background-color:#ac0633;
+}
+caption {
+    background: white;
+    font-weight: bold;
+}
+
+.card-image{
+    min-height:150px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
