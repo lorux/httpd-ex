@@ -1,0 +1,41 @@
+
+<!DOCTYPE html>
+<!-- saved from url=(0020)http://10.10.39.132/ -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <title>PA di Test</title>
+
+    <script type="text/javascript">
+      function onInit(){
+            const urlParams = new URLSearchParams(window.location.search);
+            const idSession = urlParams.get('idSession');
+            const idDominio = urlParams.get('idDominio');
+            const esito = urlParams.get('esito');
+const sess= document.getElementById('idSession');
+sess.innerHTML=idSession;
+            const dominio = document.getElementById('idDominio');
+dominio.innerHTML=idDominio;
+	const es = document.getElementById('esito');
+es.innerHTML=esito;
+      }
+      window.onload = onInit;
+    </script>
+  </head>
+
+    <body >
+        <p>
+            <h1>PA di Test</h1>
+		<p>
+		     idSession: <span id="idSession"></span>
+		</p>
+		<p>
+		     idDominio: <span id="idDominio"></span>
+		</p>
+		<p>
+		    esito: <span id="esito"></span>
+		</p>
+
+        <p>    
+    </body>
+</html>
+

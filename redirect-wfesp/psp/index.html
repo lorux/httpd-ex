@@ -1,0 +1,92 @@
+
+<!DOCTYPE html>
+<!-- saved from url=(0020)http://10.10.39.132/ -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <title>Banca di Test</title>
+
+    <script type="text/javascript">
+      function goToWFESP(event){
+          event.preventDefault();
+          var wfespURL = document.getElementById('formURL').value;
+          var esito;
+          var idBruciatura;
+          var idDominio;
+          var append ="";
+          if(document.getElementById('esito')){
+             esito = document.getElementById('esito').value;
+             if(esito){
+                 append += "codiceRitorno="+esito;
+                console.log(esito);
+             }
+             
+          }
+          if(document.getElementById('idBruciatura')){
+            idBruciatura = document.getElementById('idBruciatura').value;
+            if(idBruciatura){
+                if(append != ""){ append += "&"};
+                append += "idBruciatura="+idBruciatura;
+                console.log(idBruciatura);
+            }
+          }
+          if(document.getElementById('idDominio')){
+              
+            idDominio = document.getElementById('idDominio').value;
+            if(idDominio){
+                if(append != ""){ append += "&"};
+                append += "idDominio="+idDominio;
+                console.log(idDominio);
+            }
+          }
+          var completeURL = wfespURL+append;
+          var a = document.getElementById('wfespURL');
+        a.href = completeURL
+        a.innerHTML = completeURL
+      }
+      function onInit(){
+          // your form
+          var form = document.getElementById("gotoWFESP");
+
+          const urlParams = new URLSearchParams(window.location.search);
+            const idDominio = urlParams.get('idDominio');
+            const idBruciatura = urlParams.get('idBruciatura');
+            document.getElementById('idBruciatura').value=idBruciatura
+            document.getElementById('idDominio').value=idDominio
+         // attach event listener
+         form.addEventListener("submit", goToWFESP, true);
+      }
+      window.onload = onInit;
+    </script>
+  </head>
+
+    <body >
+        <p>
+            <h1>Banca di Test</h1>
+            <form id="gotoWFESP" >
+                
+                <p>
+                    <label for="formURL">URL</label> <br/>
+                    <input style="width:500px;" type="text" id="formURL" name="formURL" value="http://10.82.39.155:9093/redirect/wpl02/esito?">
+                </p>
+                <p>
+                    <label for="idBruciatura">idBruciatura:</label> <br/>
+                    <input style="width:500px;" type="text" name="idBruciatura" size="10" id="idBruciatura" value="">
+                </p>
+                <p>
+                    <label for="idDominio">idDominio:</label> <br/>
+                    <input style="width:500px;" type="text" name="idDominio" size="10" id="idDominio" value="">
+                </p>
+                <p>
+                    <label for="esito">Cod. Ritorno:</label> <br/>
+                    <input style="width:500px;" type="text" name="esito" size="10" id="esito" value="">
+                </p>
+
+                <input type="submit" value="Genera link">
+            </form>
+            <p>
+                <a href="#" name="wfespURL" id="wfespURL" ></a>
+            </p>
+        <p>    
+    </body>
+</html>
+
