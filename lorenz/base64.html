@@ -2,52 +2,97 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="styles/vs.css">
     <style>
-    html,body {height:100%;box-sizing: border-box;margin: 0;padding: 5px;}
+    html,body {height:100%;box-sizing: border-box;margin: 0;}
+    
     body{
+      padding:5px;
       display:flex;
       flex-direction:column;
     }
-        body,textarea {
-        color: #212121;
-        font-family: "Helvetica Neue", "Calibri Light", Roboto, sans-serif;
-        letter-spacing: 0.02em;
-        font-size:13px;
-
+    body {
+      color: #212121;
+      font-family: "Helvetica Neue", "Calibri Light", Roboto, sans-serif;
+      letter-spacing: 0.02em;
+      font-size:13px;
     }
     .buttons{
       display:flex;
     }
-    textarea{
+    #dest{
+      border:solid 1px;
+      flex-grow: 1;
+      width:100%;
+      max-height:20%;
+      overflow: auto;
+    }
+    pre{
       display:block;
       width:100%;
+      max-height:80%;
       flex-grow: 1;
+      border:solid 1px;
+    }
+    pre code {
+      height:100%; 
+      width:100%;
+      display:block;
+    }
+    .hljs{
+      padding:0
     }
     </style>
+    
     <script type="text/javascript" src="vkbeautify.0.99.00.beta.js"></script>
+    <script type="text/javascript" src="highlight.pack.js"></script>
 </head>
 <body>
   <div>Cleartext</div>
-  <textarea id ="source"></textarea>
+  <pre><code contenteditable="true" class="html" id ="source"></code></pre>
   <div class="buttons">
     <button id="encode">encode ▼</button>
     <button id="decode">decode ▲</button>
     <button id="prettyfy">pretty print</button>
   </div>
   <div>Encoded</div>
-  <textarea id ="dest"></textarea>
+  <div contenteditable="true" id="dest"></div>
   <script>
+    function b64EncodeUnicode(str) {
+        return btoa(encodeURIComponent(str).replace(/%([0-9A-F]{2})/g,
+            function toSolidBytes(match, p1) {
+                return String.fromCharCode('0x' + p1);
+        }));
+    }
+    function b64DecodeUnicode(str) {
+        return decodeURIComponent(atob(str).split('').map(function(c) {
+            return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+        }).join(''));
+    }
+
   document.querySelector("#encode").addEventListener('click',function(){
-    document.querySelector("#dest").value = btoa(document.querySelector("#source").value)
+    document.querySelector("#dest").textContent = b64EncodeUnicode(document.querySelector("#source").textContent)
   })
   document.querySelector("#decode").addEventListener('click',function(){
-    document.querySelector("#source").value = atob(document.querySelector("#dest").value)
+    try {
+      document.querySelector("#source").textContent = b64DecodeUnicode(document.querySelector("#dest").textContent)
+      hljs.highlightBlock(document.querySelector("#source"));
+    } catch(err){
+      alert('BASE64 non valido')
+    }
+    
+  })
+
+  document.querySelector("#source").addEventListener('focus',()=>{
+    document.querySelector("#source").textContent = document.querySelector("#source").textContent
   })
 
   document.querySelector("#prettyfy").addEventListener('click',function(){
-    document.querySelector("#source").value = vkbeautify.xml(document.querySelector("#source").value)
+    document.querySelector("#source").textContent = vkbeautify.xml(document.querySelector("#source").textContent)
+    hljs.highlightBlock(document.querySelector("#source"));
   })
 
+  
 
   </script>
 </body>
